@@ -1,0 +1,13 @@
+<div class="board">
+  <div class="matrix">
+  <div class="row" *ngFor="let row of board; let i = index">
+    <div class="square" *ngFor="let cell of row; let j = index" (click)="makeMove(i, j)">
+      {{ cell }}
+    </div>
+  </div>
+  </div>
+  <button *ngIf="!gameStarted" type="button" class="play-btn" (click)="startGame()">Play</button>
+  <button *ngIf="gameStarted" type="button" class="play-btn" (click)="startGame()">Restart</button>
+
+</div>
+<h1 *ngIf="!gameStarted" class="welcome-banner">{{welcomeMsg}}</h1>
