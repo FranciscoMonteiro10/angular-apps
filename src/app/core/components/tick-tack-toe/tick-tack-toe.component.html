@@ -1,13 +1,39 @@
-<div class="board">
-  <div class="matrix">
-  <div class="row" *ngFor="let row of board; let i = index">
-    <div class="square" *ngFor="let cell of row; let j = index" (click)="makeMove(i, j)">
-      {{ cell }}
+<div class="game-container">
+  <div class="first-move-banner" *ngIf="firstMoveMessage$ | async as message" [ngClass]="{
+    'x-turn': (currentPlayer$ | async) === 'X',
+    'o-turn': (currentPlayer$ | async) === 'O'
+  }">
+    {{ message }}
+  </div>
+
+  <div class="board" *ngIf="gameStarted$ | async; else welcome">
+    <div class="matrix">
+      <div class="row" *ngFor="let row of (board$ | async); let i = index">
+        <div
+          class="square"
+          *ngFor="let cell of row; let j = index"
+          (click)="makeMove(i, j)"
+          [ngClass]="{
+            'x-player': cell === 'X',
+            'o-player': cell === 'O',
+            'animate-in': cell
+          }"
+        >
+          {{ cell }}
+        </div>
+      </div>
     </div>
   </div>
-  </div>
-  <button *ngIf="!gameStarted" type="button" class="play-btn" (click)="startGame()">Play</button>
-  <button *ngIf="gameStarted" type="button" class="play-btn" (click)="startGame()">Restart</button>
 
+  <ng-template #welcome>
+    <h1 class="welcome-banner">{{ welcomeMessage }}</h1>
+  </ng-template>
+
+  <button
+    pButton
+    type="button"
+    [label]="(gameStarted$ | async) ? 'Restart' : 'Play'"
+    class="play-btn"
+    (click)="startGame()"
+  ></button>
 </div>
-<h1 *ngIf="!gameStarted" class="welcome-banner">{{welcomeMsg}}</h1>
