@@ -1,57 +1,147 @@
-.board {
+.game-container {
   display: flex;
   flex-direction: column;
-  width: 300px;
-  margin: auto;
+  align-items: center;
+  gap: 2rem;
+  padding: 2rem;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #1e1e2f 0%, #2a2a4a 100%);
+  font-family: 'Arial', sans-serif;
+}
+
+.first-move-banner {
+  padding: 0.75rem 2rem;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: white;
+  border-radius: 0.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  animation: slideIn 0.5s ease-out;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.x-turn {
+  background: linear-gradient(90deg, rgba(255, 107, 107, 0.4), rgba(255, 107, 107, 0.2));
+}
+
+.o-turn {
+  background: linear-gradient(90deg, rgba(78, 205, 196, 0.4), rgba(78, 205, 196, 0.2));
+}
+
+.board {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 1rem;
+  padding: 1rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
 }
 
 .matrix {
-  margin-top: 25%;
+  display: grid;
+  gap: 0.5rem;
 }
 
 .row {
   display: flex;
+  gap: 0.5rem;
 }
 
 .square {
   width: 100px;
   height: 100px;
-  border: 1px solid #000;
   display: flex;
   align-items: center;
   justify-content: center;
+  font-size: 2.5rem;
+  font-weight: bold;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 0.5rem;
   cursor: pointer;
-  font-size: 2em;
-  background-color: white;
+  transition: transform 0.2s ease, background 0.3s ease;
+  user-select: none;
+
+  &:hover:not(.x-player):not(.o-player) {
+    background: rgba(255, 255, 255, 0.2);
+    transform: scale(1.05);
+  }
 }
 
-.square:hover {
-  background-color: grey;
+.x-player {
+  color: #ff6b6b;
+  background: rgba(255, 107, 107, 0.2);
 }
 
-.play-btn{
-  background-color: white;
-  width: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-left: 25%;
-  margin-top: 25px;
-  height: 50px;
-  border-radius: 10px;
-  font-size: 20px;
+.o-player {
+  color: #4ecdc4;
+  background: rgba(78, 205, 196, 0.2);
 }
 
-.play-btn:hover{
-  background-color: grey;
+.animate-in {
+  animation: popIn 0.3s ease-out;
 }
 
-.welcome-banner{
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 10%;
-  cursor: default;
+.play-btn {
+  padding: 0.75rem 2rem;
+  font-size: 1.2rem;
+  background: #ff6b6b;
+  border: none;
+  border-radius: 0.5rem;
   color: white;
-  font-size: 2rem;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s ease;
+
+  &:hover {
+    background: #ff8787;
+    transform: translateY(-2px);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}
+
+.welcome-banner {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #fff;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  animation: fadeIn 1s ease-in;
+}
+
+@keyframes slideIn {
+  0% {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes popIn {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  70% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
